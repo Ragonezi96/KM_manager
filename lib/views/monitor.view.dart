@@ -26,12 +26,7 @@ class MonitorFormView extends StatefulWidget {
 
 
 class _MonitorFormViewState extends State<MonitorFormView> {
-  final _tId = TextEditingController();
-  final _tvalorcombustivel = TextEditingController();
-  final _tkmatual = TextEditingController();
-  final _tlitrosabastecidos = TextEditingController();
-  final _tdate = TextEditingController();
-  final _tconcluido = TextEditingController();
+
 
 
   var _formKey = GlobalKey<FormState>();
@@ -43,21 +38,7 @@ class _MonitorFormViewState extends State<MonitorFormView> {
   void initState() {
     super.initState();
   print('START');
-    if (widget.consumo == null) {
-      _consumo = Consumo();
-      _isEdited = false;
-    } else {
-      _consumo = widget.consumo;
-      _isEdited = true;
-      _tId.text = _consumo.id.toString();
-      _tvalorcombustivel.text = _consumo.valorcombustivel.toString();
-      //_tkmatual.text = _consumo.kmatual.toString();
-      _tkmatual.text = 'TESTE';
-      _tlitrosabastecidos.text = _consumo.litrosabastecidos.toString();
-      _tdate.text = _consumo.date;
-      _tconcluido.text = _consumo.concluido.toString();
-
-    }
+    
   }
 
   // PROCEDIMENTO PARA VALIDAR OS CAMPOS
@@ -70,12 +51,12 @@ class _MonitorFormViewState extends State<MonitorFormView> {
 
   // Widget EditText
   _editText(
-      String field, TextEditingController controller, TextInputType type) {
+      String field , TextInputType type) {
         
     return TextFormField(
       
       enabled: false,
-      controller: controller,
+     
       validator: (s) => _validate(s, field),
       keyboardType: type,
       decoration: InputDecoration(
@@ -85,7 +66,7 @@ class _MonitorFormViewState extends State<MonitorFormView> {
   }
 
 
-
+//Modelo de negocio
  @override
   Widget build(BuildContext context) {
     final _controller = Provider.of<ConsumoController>(context);
@@ -123,15 +104,7 @@ class _MonitorFormViewState extends State<MonitorFormView> {
       ),
       
       body: 
-      
-        RefreshIndicator(
-        onRefresh: () async {
-        print("começa lista");
-        await _controller.getKM();
-      
-        },
-       
-        child: Container(
+         Container(
             child: SingleChildScrollView(
           padding: EdgeInsets.all(15.0),
           child: Form(
@@ -141,10 +114,10 @@ class _MonitorFormViewState extends State<MonitorFormView> {
               children: <Widget>[
 
                
-                _editText("Quilometragem total percorrida ${km_total}", _tkmatual, TextInputType.number),
-                _editText("Litros abastecidos ${litros_total}", _tvalorcombustivel, TextInputType.number),
-                _editText("KM/L  ${km_l}", _tdate, TextInputType.number),
-                _editText("Media de combustivel ${avg_fuel}", _tlitrosabastecidos, TextInputType.number),
+                _editText("Quilometragem total percorrida ${km_total}", TextInputType.number),
+                _editText("Litros abastecidos ${litros_total}", TextInputType.number),
+                _editText("KM/L  ${km_l}", TextInputType.number),
+                _editText("Media de combustivel ${avg_fuel}", TextInputType.number),
               
                 
               ],
@@ -153,43 +126,5 @@ class _MonitorFormViewState extends State<MonitorFormView> {
            
           
         ),
-      ),);
+      );
   }  }
-/*
-  @override
-  Widget build(BuildContext context) {
-    final _controller = Provider.of<ConsumoController>(context);
-    _controller.getKM();
-    print("logo abaixo");
-
-    
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Monitoramento"),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-          padding: EdgeInsets.all(15.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-   
-    
-          
-          
-        
-                _editText("Data(dd-mm-yyyy)", _tdate, TextInputType.text),
-                _editText("Kilometragem atual", _tkmatual, TextInputType.number),
-                _editText("Valor do litro", _tvalorcombustivel, TextInputType.number),
-                _editText("Litros abastecidos", _tlitrosabastecidos, TextInputType.number),
-              
-                
-              ],
-            ),
-          )),
-    );
-  }
-}
-*/

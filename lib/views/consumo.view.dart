@@ -25,14 +25,12 @@ class _ConsumoListViewState extends State<ConsumoListView> {
         title: Text("KM_manager"),
         centerTitle: true,
       ),
-      body: 
-      
-        RefreshIndicator(
+      body:  RefreshIndicator(
         onRefresh: () async {
           await _controller.getAll();
-          await _controller.getAll();
+       
         },
-        
+    
         child: Container(
             child: Observer(builder: (_) {
               if (_controller.status == AppStatus.loading) {
