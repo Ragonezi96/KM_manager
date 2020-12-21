@@ -62,7 +62,6 @@ class _ConsumoListViewState extends State<ConsumoListView> {
           
         ),
       ),
-      
        floatingActionButton: SpeedDial(
           // both default to 16
           marginRight: 18,
